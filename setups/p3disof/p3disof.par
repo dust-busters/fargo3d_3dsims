@@ -24,6 +24,9 @@ Z0Slope                 1.059203        Slope of transition height
 PlanetConfig		planets/zero.cfg
 ThicknessSmoothing 	0.13		Smoothing parameters in disk thickness
 MassTaper               628.3185307179587
+TMassPlateau		0.0
+TMassRamp		0.0
+Massaccr		0.0
 
 ### Numerical method parameters
 Strat                   YES
