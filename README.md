@@ -6,6 +6,9 @@
 4) upload the script to run a batch of simulations [A]
 5) prepare the parameter file and slurm submission file for script and write instructions [A]
 
+# Notes
+* we ar eyusing the `p3disof` setup
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 # ORIGINAL --- FARGO3D #
