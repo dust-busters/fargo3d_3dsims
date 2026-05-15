@@ -27,7 +27,7 @@ Parameter files are generated from a template passed via `-p`. The template supp
 
 | Placeholder | Replaced with |
 |---|---|
-| `$par$` | The value from the `par` column in the CSV |
+| `$<par>$` | The value from the `<par>` column in the CSV |
 | `$outf$` | The output file path |
 | `$setup$` | The FARGO setup name (placed at the top of the file) |
 
