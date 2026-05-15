@@ -1,13 +1,9 @@
 # TODO:
 
-~~1) upload the new setup that we will use (with boundaries etc..) [L]~~
-
+1) ~~upload the new setup that we will use (with boundaries etc..) [L]~~
 2) upload the file to gradually increasing the planet mass [A]
-   
 3) upload the file with the beta cooling implementation [L]
-   
 4) upload the script to run a batch of simulations [A]
-   
 5) prepare the parameter file and slurm submission file for script and write instructions [A]
 
 
