@@ -1,10 +1,48 @@
 # TODO:
 
 1) ~~upload the new setup that we will use (with boundaries etc..) [L]~~
-2) upload the file to gradually increasing the planet mass [A]
+2) ~~upload the file to gradually increasing the planet mass [A]~~
 3) upload the file with the beta cooling implementation [L]
-4) upload the script to run a batch of simulations [A]
+4) ~~upload the script to run a batch of simulations [A]~~
 5) prepare the parameter file and slurm submission file for script and write instructions [A]
+
+# slurmshot — Script for Preparing Simulation Groups
+
+`slurmshot` is a Python script for setting up batches of simulations. Run `./slurmshot --help` to list all available options.
+
+## How It Works
+
+When executed, `slurmshot` generates a new directory `<name>` with the following structure:
+
+| Folder | Contents |
+|---|---|
+| `submits/` | Slurm submission files |
+| `parfiles/` | Parameter files |
+| `slurm_log/` | Slurm log files |
+| `outputs/` | Simulation output files |
+
+## Parameter Files
+
+Parameter files are generated from a template passed via `-p`. The template supports the following placeholders, which are substituted per simulation using values from the `.csv` file passed via `-l` (matched by column name):
+
+| Placeholder | Replaced with |
+|---|---|
+| `$par$` | The value from the `par` column in the CSV |
+| `$outf$` | The output file path |
+| `$setup$` | The FARGO setup name (placed at the top of the file) |
+
+## Submission Files
+
+Submission files are generated from a template passed via `-s`. The following placeholders are substituted with the corresponding arguments passed to `slurmshot`:
+
+| Placeholder | Replaced with |
+|---|---|
+| `$root$` | Root directory |
+| `$simid$` | Simulation ID |
+| `$blockname$` | Block name |
+| `$ram$` | RAM allocation |
+| `$cores$` | Number of cores |
+| `$setup$` | FARGO setup name |
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
