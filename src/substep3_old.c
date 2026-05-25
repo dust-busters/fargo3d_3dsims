@@ -11,14 +11,6 @@ void SubStep3_cpu (real dt) {
 
 //<USER_DEFINED>
   INPUT(Energy);
-
-
-#ifdef BETACOOLING
-  INPUT2D(Energy0);
-  INPUT2D(Density0);
-  INPUT2D(Vx0);
-  INPUT(Density);
-#endif
 #ifdef X
   INPUT(Vx_temp);
 #endif
@@ -33,12 +25,6 @@ void SubStep3_cpu (real dt) {
 
 //<EXTERNAL>
   real* e   = Energy->field_cpu;
-#ifdef BETACOOLING
-  real* e0   = Energy0->field_cpu;
-  real* vx0 = Vx0->field_cpu;
-  real* rho = Density->field_cpu;
-  real* rho0 = Density0->field_cpu;
-#endif
 #ifdef X
   real* vx  = Vx_temp->field_cpu;
 #endif
@@ -53,20 +39,13 @@ void SubStep3_cpu (real dt) {
   int size_x = XIP; 
   int size_y = Ny+2*NGHY-1;
   int size_z = Nz+2*NGHZ-1;
-  real gamma = GAMMA;
-  real beta = BETA;
-  int pitch2d = Pitch2D;
-  real y_min = YMIN;
-  real y_max = YMAX;
-  real z_min = ZMIN;
-  real z_max = ZMAX;
 //<\EXTERNAL>
 
 //<INTERNAL>
   int i; //Variables reserved
   int j; //for the topology
   int k; //of the kernels
-  int ll, ll2D;
+  int ll;
 #ifdef X
   int llxp;
 #endif
@@ -78,13 +57,10 @@ void SubStep3_cpu (real dt) {
 #endif
   real term;
   real div_v;
-  real temp_p;
-  real tcool, R, r;
 //<\INTERNAL>
   
 //<CONSTANT>
 // real GAMMA(1);
-// real Sxi(Nx);
 // real Sxj(Ny+2*NGHY);
 // real Syj(Ny+2*NGHY);
 // real Szj(Ny+2*NGHY);
@@ -92,13 +68,6 @@ void SubStep3_cpu (real dt) {
 // real Syk(Nz+2*NGHZ);
 // real Szk(Nz+2*NGHZ);
 // real InvVj(Ny+2*NGHY);
-// real xmin(Nx+2*NGHX+1);
-// real ymin(Ny+2*NGHY+1);
-// real zmin(Nz+2*NGHZ+1);
-// real OMEGAFRAME(1);
-// real OORTA(1);
-//<\CONSTANT>
-
 //<\CONSTANT>
 
 //<MAIN_LOOP>
@@ -117,7 +86,6 @@ void SubStep3_cpu (real dt) {
 //<#>
 
 	ll = l;
-  ll2D = l2D;
 #ifdef X
 	llxp = lxp;
 #endif
@@ -132,40 +100,16 @@ void SubStep3_cpu (real dt) {
 	div_v += (vx[llxp]-vx[ll])*SurfX(j,k);
 #endif
 #ifdef Y
-	div_v += (vy[llyp]*SurfY(i,j+1,k)-vy[ll]*SurfY(i,j,k));
+	div_v += (vy[llyp]*SurfY(j+1,k)-vy[ll]*SurfY(j,k));
 #endif
 #ifdef Z
-	div_v += (vz[llzp]*SurfZ(i,j,k+1)-vz[ll]*SurfZ(i,j,k));
+	div_v += (vz[llzp]*SurfZ(j,k+1)-vz[ll]*SurfZ(j,k));
 #endif
-#ifndef BETACOOLING
-	term = 0.5 * dt * (gamma - 1.) * div_v * InvVol(i,j,k);
+	term = 0.5 * dt * (GAMMA - 1.) * div_v * InvVol(j,k);
 	e[ll] *= (1.0-term)/(1.0+term);
-#endif
-#ifdef BETACOOLING
-	r = ymed(j);
-	R = r;
-#ifdef Z
-	R = r*sin(zmed(k));
-#endif
-	tcool = sqrt(1.0/(R*R*R))*TCOOL;
-
-	//term = 0.5 * dt * (gamma - 1.0) * div_v * InvVol(i,j,k) + 0.5*tcool*dt;
-	//if (term > 5 || term<-5)
-	//	e[ll] = e0[ll2D]*rho[ll];
-	//else
-  	//	e[ll] = (e[ll]*(1.0-term) + e0[ll2D]*rho[ll]*tcool*dt)/(1.0+term);
-	
-	term = 0.5 * dt * (gamma -1.) * div_v * InvVol(i,j,k);
-	e[ll] *= (1.0-term)/(1.0+term);
-	e[ll] = e0[ll2D]*rho[ll]/rho0[ll2D] + (e[ll]-e0[ll2D]*rho[ll]/rho0[ll2D])*exp(-tcool*dt);	
-	//e[l] = (e[l]*taud+e0[l2D]*rho0[l2D]*dt/normfact)/(dt+taud);
-	//*/
-#endif
-  //end beta cooling
 //<\#>
 #ifdef X
       }
-
 #endif
 #ifdef Y
     }
