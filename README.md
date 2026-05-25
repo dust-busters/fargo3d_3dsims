@@ -23,13 +23,13 @@ When executed, `slurmshot` generates a new directory `<name>` with the following
 
 ## Parameter Files
 
-Parameter files are generated from a template passed via `-p`. The template supports the following placeholders, which are substituted per simulation using values from the `.csv` file passed via `-l` (matched by column name):
+Parameter files are generated from a template passed via `-p`. The template supports the following placeholders, which are substituted per simulation using values passed as arguments to the script or from the `.csv` file passed via `-l` (matched by column name):
 
 | Placeholder | Replaced with |
 |---|---|
 | `$<par>$` | The value from the `<par>` column in the CSV |
-| `$outf$` | The output file path |
-| `$setup$` | The FARGO setup name (placed at the top of the file) |
+| `$outf$` | The output file path, generated automatically|
+| `$setup$` | The FARGO setup name (placed at the top of the file), from the `-t` argument|
 
 ## Submission Files
 
@@ -37,12 +37,12 @@ Submission files are generated from a template passed via `-s`. The following pl
 
 | Placeholder | Replaced with |
 |---|---|
-| `$root$` | Root directory |
-| `$simid$` | Simulation ID |
-| `$blockname$` | Block name |
-| `$ram$` | RAM allocation |
-| `$cores$` | Number of cores |
-| `$setup$` | FARGO setup name |
+| `$root$` | Root directory, from `--root` |
+| `$simid$` | Simulation ID, automatically from the index column in the CSV |
+| `$blockname$` | Block name, from `-n` |
+| `$ram$` | RAM allocation, from `-r`|
+| `$cores$` | Number of cores, from `-c`|
+| `$setup$` | FARGO setup name, form `-t`|
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
