@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH -o /exa/projects/DiscEvol_storage/alessandro.ruzza/new_simulations/fargo3d/slurm_log/testFF.log
-#SBATCH -D /exa/projects/DiscEvol_storage/alessandro.ruzza/new_simulations/fargo3d/
-#SBATCH -J testFF
+#SBATCH -o $root$/$blockname$/slurm_log/$simid$.%j.%N.log
+#SBATCH -D $root$/fargo3d_3dsims/
+#SBATCH -J 3dsb.$simid$.%j.%N
 #SBATCH -p a100-gpu
 #SBATCH --get-user-env
 #SBATCH --mail-type=end
 #SBATCH --mail-user=alessandro.ruzza@unimi.it
-#SBATCH --mem=256gb
+#SBATCH --mem=$ram$
 #SBATCH --account=edka
 #SBATCH --ntasks=2
 #SBATCH --cpus-per-task=2
@@ -20,8 +20,8 @@ module load openmpi/4.1.7-gcc-8.5.0-jvfdfs6
 module load python
 source test1/venv/bin/activate
 
-make clean SETUP=dbnetshm GPU=1 PARA=1
-make para SETUP=dbnetshm GPU=1 PARA=1 MPICUDA=1
+make clean SETUP=$setup$ GPU=1 PARA=1
+make para SETUP=$setup$ GPU=1 PARA=1 MPICUDA=1
 
 # === Run using mpirun ===
 export OMP_NUM_THREADS=1
@@ -55,6 +55,6 @@ export UCX_TLS=rc,cuda_copy
 export UCX_MEMTYPE_CACHE=n
 export LD_LIBRARY_PATH=/exa/software/Spack-2023/spack/opt/spack/linux-rocky8-x86_64/gcc-8.5.0/cuda-12.5.0-swvdwcssr73ydtolish4334fy7pwlf53/lib64/:$LD_LIBRARY_PATH
 
-mpirun --mca pml ^ucx --mca btl ^uct,vader,openib --mca coll ^hcoll,ucx -np 2 ./fargo3d -S 83 +D $DEVFILE dbnetshm.par
+mpirun --mca pml ^ucx --mca btl ^uct,vader,openib --mca coll ^hcoll,ucx -np 2 ./fargo3d +D $DEVFILE $root$/$blockname$/parafiles/para_$simid$.par
 
 

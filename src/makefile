@@ -96,7 +96,7 @@ endif
 include ${FARGO_OPT_FILE} #The name must not contain digits
 #--------------------FARGO_VARIABLES----------------------------------
 ifndef FARGO_ARCH
-FARGO_ARCH  = LINUX
+FARGO_ARCH  = INDACO
 endif
 ifeq (-DGPU,${findstring -DGPU,${FARGO_OPT}})
 	FARGO_GPU   = 1
@@ -123,6 +123,27 @@ endif # ifndef CUDA
 ifndef PYTHON_INCLUDE
 PYTHON_INCLUDE = /usr/include/python3.8
 endif
+#---------------------------------------------------------------------
+#LINUX PLATFORM (GENERIC, default)
+#FARGO_ARCH must be set to INDACO
+CC_INDACO      = gcc 
+SEQOPT_INDACO  = -O3
+PARAOPT_INDACO = ${SEQOPT_LINUX}
+PARACC_INDACO  = mpicc
+LIBS_INDACO    = -lm
+INC_INDACO     = 
+NVCC_INDACO    = nvcc
+#CUDAOPT_LINUX = -O3 -w -arch=sm_100 # try utils/cuda/get_cuda_sm.sh
+CUDAOPT_INDACO = -O3 -arch=sm_80 # try utils/cuda/get_cuda_sm.sh
+PARAINC_INDACO = 
+PARALIB_INDACO =
+CUDAINC_INDACO = -I${CUDA}/include/
+CUDALIB_INDACO = -L${CUDA}/lib64/  -lcudart -lstdc++
+CXX_INDACO     = g++ -stdlib=libstdc++
+CXXPARA_INDACO = mpic++ -stdlib=libstdc++
+ENVRANK_INDACO = OMPI_COMM_WORLD_LOCAL_RANK
+#---------------------------------------------------------------------
+#ndif
 #---------------------------------------------------------------------
 #LINUX PLATFORM (GENERIC, default)
 #FARGO_ARCH must be set to LINUX

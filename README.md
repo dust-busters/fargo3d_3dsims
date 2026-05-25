@@ -44,6 +44,9 @@ Submission files are generated from a template passed via `-s`. The following pl
 | `$cores$` | Number of cores, from `-c`|
 | `$setup$` | FARGO setup name, form `-t`|
 
+## Example of usage
+
+`[alessandro.ruzza@login1ng 3dsims_prod]$ ./fargo3d_3dsims/slurmshot -p fargo3d_3dsims/template_par.par -s fargo3d_3dsims/run_indaco.sh -l fargo3d_3dsims/3Dsimulations_parameters.csv -t p3disof -c 8 -n prod_batch`
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 # ORIGINAL --- FARGO3D #

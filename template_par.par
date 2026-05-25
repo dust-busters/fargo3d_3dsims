@@ -2,14 +2,14 @@ Setup			p3disof
 
 ### Disk parameters
 
-AspectRatio     	0.1             Midplane scale height
-AspectRatio2		0.1             Atmosphere scale height
+AspectRatio     	$h_mid$             Midplane scale height
+AspectRatio2		$h_atm$             Atmosphere scale height
 Sigma0			1.0		Surface Density at r=1
 #Nu			1.0e-5		Uniform kinematic viscosity
-Alpha			1.0e-3
-SigmaSlope		1.5		Slope of surface
-FlaringIndex		0.25
-FlaringIndex2           0.25
+Alpha			1.0e-2
+SigmaSlope		$p$		Slope of surface
+FlaringIndex		$f$
+FlaringIndex2           $f$
 TauDamp			0.01
 Tcool                   1.0e-6
 Rc                      2.0
@@ -23,10 +23,11 @@ Z0Slope                 1.059203        Slope of transition height
 
 PlanetConfig		planets/zero.cfg
 ThicknessSmoothing 	0.13		Smoothing parameters in disk thickness
-MassTaper               628.3185307179587
+MassTaper               0.0
+PlanetMass		0.01
 TMassPlateau		0.0
 TMassRamp		0.0
-Massaccr		0.0
+Massaccr		2500.0
 
 ### Numerical method parameters
 Strat                   YES
@@ -48,11 +49,11 @@ Epsilon_init		0.1 		Initial midplane dust-to-gas ratio
 
 ### Mesh parameters
 
-Nx			880             Azimuthal number of zones 
-Ny                      369		Radial number of zones
-Nz			56		Number of zones in colatitude
+Nx			$NX$             Azimuthal number of zones 
+Ny                      $NY$		Radial number of zones
+Nz			$NZ$		Number of zones in colatitude
 Ymin			0.3		Inner boundary radius
-Ymax			5.0		Outer boundary radius
+Ymax			10.0		Outer boundary radius
 Zmin		        1.1707963267948966
 Zmax			1.5707963267948966
 Xmin                    -3.141592653589793
@@ -61,9 +62,9 @@ Spacing			Log
 
 ### Output control parameters
 
-Ntot			2000			Total number of time steps
-Ninterm	 		20			Time steps between outputs
+Ntot			5000			Total number of time steps #2500 orbits
+Ninterm	 		5			Time steps between outputs #1 output every dq = 1e-5
 DT			3.141592653589793  	Time step length. 2PI = 1 orbit
-OutputDir		@outputs/p3disof
+OutputDir		$outf$
 Field 			gasdens
 PlotLine		field[-1,:,:]
