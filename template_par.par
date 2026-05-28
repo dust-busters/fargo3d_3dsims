@@ -54,7 +54,7 @@ Ny                      $NY$		Radial number of zones
 Nz			$NZ$		Number of zones in colatitude
 Ymin			0.3		Inner boundary radius
 Ymax			10.0		Outer boundary radius
-Zmin		        1.1707963267948966
+Zmin		        $theta_min$
 Zmax			1.5707963267948966
 Xmin                    -3.141592653589793
 Xmax                    3.141592653589793
