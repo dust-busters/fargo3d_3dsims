@@ -76,9 +76,9 @@ void InitDensityStrat() {
 //          real zq = 3.0*H;
           if (selfConsistent == 1){
 //	    real zq = 38.220155 * ASPECTRATIO * ASPECTRATIO * pow(R/R0, 1.059203) * R;
-	    real zq = HEIGHT/100 * pow(R/R0, Z0SLOPE);
+	     zq = HEIGHT/100 * pow(R/R0, Z0SLOPE);
           } else {
-            real zq = 3.0*H;
+             zq = 3.0*H;
           }
 	  real integ;
 	  real sigma_int = 0.0;
