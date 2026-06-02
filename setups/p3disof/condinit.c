@@ -241,9 +241,9 @@ void InitSoundSpeedStrat() {
         H = ASPECTRATIO*pow(R/R0,FLARINGINDEX)*R;
         if (selfConsistent == 1){
 //          real zq = 38.220155 * ASPECTRATIO * ASPECTRATIO * pow(R/R0, 1.059203) * R;
-          real zq = HEIGHT/100 * pow(R/R0, Z0SLOPE);
+          zq = HEIGHT/100 * pow(R/R0, Z0SLOPE);
         } else {
-          real zq = 3.0*H;
+          zq = 3.0*H;
         }
 //	real zq = TEMP_Z0*pow(R/R0,TEMP_BETA);
 //        field[l] = pow(csmid,8.) + 0.5*pow(csatm,8.)*(1.+tanh((fabs(z)-TEMP_ALPHA*zq)/zq));
