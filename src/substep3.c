@@ -157,7 +157,7 @@ void SubStep3_cpu (real dt) {
 	
 	term = 0.5 * dt * (gamma -1.) * div_v * InvVol(i,j,k);
 	e[ll] *= (1.0-term)/(1.0+term);
-	e[ll] = e0[ll2D]*rho[ll]/rho0[ll2D] + (e[ll]-e0[ll2D]*rho[ll]/rho0[ll2D])*exp(-tcool*dt);	
+	e[ll] = e0[ll2D]*rho[ll]/rho0[ll2D] + (e[ll]-e0[ll2D]*rho[ll]/rho0[ll2D])*exp(-dt/tcool);	
 	//e[l] = (e[l]*taud+e0[l2D]*rho0[l2D]*dt/normfact)/(dt+taud);
 	//*/
 #endif
