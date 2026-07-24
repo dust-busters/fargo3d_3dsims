@@ -96,7 +96,7 @@ endif
 include ${FARGO_OPT_FILE} #The name must not contain digits
 #--------------------FARGO_VARIABLES----------------------------------
 ifndef FARGO_ARCH
-FARGO_ARCH  = INDACO
+FARGO_ARCH  = LINUX
 endif
 ifeq (-DGPU,${findstring -DGPU,${FARGO_OPT}})
 	FARGO_GPU   = 1
@@ -125,27 +125,6 @@ PYTHON_INCLUDE = /usr/include/python3.8
 endif
 #---------------------------------------------------------------------
 #LINUX PLATFORM (GENERIC, default)
-#FARGO_ARCH must be set to INDACO
-CC_INDACO      = gcc 
-SEQOPT_INDACO  = -O3
-PARAOPT_INDACO = ${SEQOPT_LINUX}
-PARACC_INDACO  = mpicc
-LIBS_INDACO    = -lm
-INC_INDACO     = 
-NVCC_INDACO    = nvcc
-#CUDAOPT_LINUX = -O3 -w -arch=sm_100 # try utils/cuda/get_cuda_sm.sh
-CUDAOPT_INDACO = -O3 -arch=sm_80 # try utils/cuda/get_cuda_sm.sh
-PARAINC_INDACO = 
-PARALIB_INDACO =
-CUDAINC_INDACO = -I${CUDA}/include/
-CUDALIB_INDACO = -L${CUDA}/lib64/  -lcudart -lstdc++
-CXX_INDACO     = g++ -stdlib=libstdc++
-CXXPARA_INDACO = mpic++ -stdlib=libstdc++
-ENVRANK_INDACO = OMPI_COMM_WORLD_LOCAL_RANK
-#---------------------------------------------------------------------
-#ndif
-#---------------------------------------------------------------------
-#LINUX PLATFORM (GENERIC, default)
 #FARGO_ARCH must be set to LINUX
 CC_LINUX      = gcc 
 SEQOPT_LINUX  = -O3
@@ -154,15 +133,13 @@ PARACC_LINUX  = mpicc
 LIBS_LINUX    = -lm
 INC_LINUX     = 
 NVCC_LINUX    = nvcc
-#CUDAOPT_LINUX = -O3 -w -arch=sm_100 # try utils/cuda/get_cuda_sm.sh
-CUDAOPT_LINUX = -O3 -w -arch=sm_89 # try utils/cuda/get_cuda_sm.sh
+CUDAOPT_LINUX = -O3 -w #-arch=sm_XX # try utils/cuda/get_cuda_sm.sh
 PARAINC_LINUX = 
 PARALIB_LINUX =
 CUDAINC_LINUX = -I${CUDA}/include/
 CUDALIB_LINUX = -L${CUDA}/lib64/  -lcudart -lstdc++
 CXX_LINUX     = g++ -stdlib=libstdc++
 CXXPARA_LINUX = mpic++ -stdlib=libstdc++
-ENVRANK_LINUX = OMPI_COMM_WORLD_LOCAL_RANK
 #---------------------------------------------------------------------
 #KEPLER PLATFORM WITH OPENMPI-1.7.4 AT UNAM
 #FARGO_ARCH must be set to KEPLEROPENMPI
@@ -389,7 +366,7 @@ MAINOBJ  = LowTasks.o psys.o main.o param.o var.o usage.o   	    \
 	   nimhd_ohmic_diffusion.o				\
 	   nimhd_ohmic_diffusion_coeff.o			\
 	   compute_jx.o compute_jy.o compute_jz.o		\
-
+	   mesh.o ram_advect.o ram_advect_lin.o ram_compute_ustar.o ram_plm.o
 #-----------------------#Cuda objects---------------------------------
 GPU_OBJ  =  reduction_sum_device.o reduction_min_device.o	\
 	   	lowtasks_gpu.o 
@@ -441,7 +418,9 @@ GPU_OBJBLOCKS =  CompPresIso_gpu.o CompPresAd_gpu.o 		\
 	   nimhd_ambipolar_diffusion_coeff_gpu.o		\
 	   nimhd_ohmic_diffusion_gpu.o				\
 	   nimhd_ohmic_diffusion_coeff_gpu.o			\
-	   compute_jx_gpu.o compute_jy_gpu.o compute_jz_gpu.o
+	   compute_jx_gpu.o compute_jy_gpu.o compute_jz_gpu.o \
+	   compute_vmed_gpu.o ram_advect_gpu.o ram_compute_ustar_gpu.o \
+	   ram_plm_gpu.o ram_advect_lin_gpu.o
 #</CUDA OBJECTS>
 #---------------------------------------------------------------------
 
@@ -698,4 +677,4 @@ endif
 	-DMONITOR_Y='${MONITOR_Y}' -DMONITOR_Y_RAW='${MONITOR_Y_RAW}' 		\
 	-DMONITOR_Z='${MONITOR_Z}' -DMONITOR_Z_RAW='${MONITOR_Z_RAW}' 		\
 	-DSETUPNAME='${SETUP}' -DVERSION=$(GIT_VERSION) 			\
-	-DPATHARCH=$(CURDIR)/$(ARCHDIR)/$(ARCHNAME) -DOPTIONS="${FARGO_OPT}"
+	-DPATHARCH='$(CURDIR)/$(ARCHDIR)/$(ARCHNAME)' -DOPTIONS="${FARGO_OPT}"
