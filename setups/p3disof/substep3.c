@@ -147,7 +147,7 @@ void SubStep3_cpu (real dt) {
 #ifdef Z
 	R = r*sin(zmed(k));
 #endif
-	tcool = sqrt(1.0/(R*R*R))*TCOOL;
+	tcool = TCOOL/sqrt(1.0/(R*R*R));
 
 	//term = 0.5 * dt * (gamma - 1.0) * div_v * InvVol(i,j,k) + 0.5*tcool*dt;
 	//if (term > 5 || term<-5)
