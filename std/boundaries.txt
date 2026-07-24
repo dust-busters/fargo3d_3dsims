@@ -103,19 +103,19 @@ OPENINNER:
 
 
 OPENVRADBEG:
-           Centered:    |minof2(0.0,vrad)|vrad|
-           Staggered:    |minof2(0.0,vrad)|minof2(0.0,vrad)|vrad|
+           Centered:    |MIN(0.0,vrad)|vrad|
+           Staggered:    |MIN(0.0,vrad)|MIN(0.0,vrad)|vrad|
 
 OPENVRADEND:
-           Centered:    |MAX2(0.0,vrad)|vrad|
-           Staggered:    |MAX2(0.0,vrad)|MAX2(0.0,vrad)|vrad|
+           Centered:    |MAX(0.0,vrad)|vrad|
+           Staggered:    |MAX(0.0,vrad)|MAX(0.0,vrad)|vrad|
 
 OPENVTHETABEG:
-      Centered:  |minof2(0.0,vtheta)|vtheta|
-      Staggered:  |minof2(0.0,vtheta)|minof2(0.0,vtheta)|vtheta|
+      Centered:  |MIN(0.0,vtheta)|vtheta|
+      Staggered:  |MIN(0.0,vtheta)|MIN(0.0,vtheta)|vtheta|
 OPENVTHETAEND:
-      Centered:  |max2(0.0,vtheta)|vtheta|
-      Staggered:  |max2(0.0,vtheta)|max2(0.0,vtheta)|vtheta|
+      Centered:  |MAX(0.0,vtheta)|vtheta|
+      Staggered:  |MAX(0.0,vtheta)|MAX(0.0,vtheta)|vtheta|
 
 KEPLERIAN3DSPHENGCOL: #Approximate extrapolation in COLatitude (Z)
     Centered: |eng*exp((vx[lgh]*vx[lgh]/tan(Zmed(kgh))*(Zmed(kgh)-Zmed(kact)))/(('GAMMA'-1.0)*energy[lact]/density[lact]))|eng|
