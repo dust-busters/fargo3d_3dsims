@@ -1,7 +1,7 @@
 # To define the boundaries it is possible to use any variable or pure
 # macro defined in the code. For example, it's allowed to use the
-# geometrical variables/macros xmin/xmed(i), ymin/ymed(i),
-# zmin/zmax(i), and macros like zone_size_x/y/z. However, it is not
+# geometrical variables/macros xfmin/xmed(i), yfmin/ymed(i),
+# zfmin/zfmax(i), and macros like zone_size_x/y/z. However, it is not
 # possible to use macros that are expanded into new macros, like
 # Surf_x/y/z nor InvVol, Vol...
 
@@ -103,19 +103,19 @@ OPENINNER:
 
 
 OPENVRADBEG:
-           Centered:    |minof2(0.0,vrad)|vrad|
-           Staggered:    |minof2(0.0,vrad)|minof2(0.0,vrad)|vrad|
+           Centered:    |fmin(0.0,vrad)|vrad|
+           Staggered:    |fmin(0.0,vrad)|fmin(0.0,vrad)|vrad|
 
 OPENVRADEND:
-           Centered:    |MAX2(0.0,vrad)|vrad|
-           Staggered:    |MAX2(0.0,vrad)|MAX2(0.0,vrad)|vrad|
+           Centered:    |fmax(0.0,vrad)|vrad|
+           Staggered:    |fmax(0.0,vrad)|fmax(0.0,vrad)|vrad|
 
 OPENVTHETABEG:
-      Centered:  |minof2(0.0,vtheta)|vtheta|
-      Staggered:  |minof2(0.0,vtheta)|minof2(0.0,vtheta)|vtheta|
+      Centered:  |fmin(0.0,vtheta)|vtheta|
+      Staggered:  |fmin(0.0,vtheta)|fmin(0.0,vtheta)|vtheta|
 OPENVTHETAEND:
-      Centered:  |max2(0.0,vtheta)|vtheta|
-      Staggered:  |max2(0.0,vtheta)|max2(0.0,vtheta)|vtheta|
+      Centered:  |fmax(0.0,vtheta)|vtheta|
+      Staggered:  |fmax(0.0,vtheta)|fmax(0.0,vtheta)|vtheta|
 
 KEPLERIAN3DSPHENGCOL: #Approximate extrapolation in COLatitude (Z)
     Centered: |eng*exp((vx[lgh]*vx[lgh]/tan(Zmed(kgh))*(Zmed(kgh)-Zmed(kact)))/(('GAMMA'-1.0)*energy[lact]/density[lact]))|eng|
