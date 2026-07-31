@@ -52,37 +52,11 @@ void Potential_cpu() {
   
 //<USER_DEFINED>
   OUTPUT(Pot);
-  real planetmass_taper=1.0;
-  
+  real planetmass_taper;
   if (MASSTAPER == 0.0)
     planetmass_taper = 1.0;
   else
-  {
-	  if (PhysicalTime >= MASSTAPER)
-	  {
-		  if (TMASSRAMP > 0.0)
-		  {
-		  int mass_step = (int)  (PhysicalTime-MASSTAPER)/(TMASSPLATEAU+TMASSRAMP);
-		  real massaccrt = (PhysicalTime-MASSTAPER)-mass_step*(TMASSPLATEAU+TMASSRAMP);
-			
-		  planetmass_taper = (real) pow(2, mass_step);
-		  if (massaccrt > TMASSPLATEAU)
-			  planetmass_taper = planetmass_taper + pow(2, mass_step)*0.5*(1.0-cos(M_PI*(massaccrt-TMASSPLATEAU)/TMASSRAMP));
-		  }
-	
-	  }
-	  else
-	  {
-    		planetmass_taper = .5*(1.0-cos(M_PI*PhysicalTime/MASSTAPER));
-	  }
-  }
-
-  if (MASSACCR != 0)
-  {
-	  planetmass_taper = PhysicalTime/(MASSACCR*2*M_PI);
-  }
-
-  
+    planetmass_taper = (PhysicalTime >= MASSTAPER ? 1.0 : .5*(1.0-cos(M_PI*PhysicalTime/MASSTAPER)));
 //<\USER_DEFINED>
 
 //<EXTERNAL>

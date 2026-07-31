@@ -3,14 +3,14 @@
 #SBATCH -o $root$/$blockname$/slurm_log/$simid$.%j.%N.log
 #SBATCH -D $root$/fargo3d_3dsims/
 #SBATCH -J 3dsb.$simid$.%j.%N
-#SBATCH --partition=hpg-turin
+#SBATCH --partition=hpg-b200
 #SBATCH --get-user-env
 #SBATCH --mail-type=end
 #SBATCH --mail-user=nicholsonl@ufl.edu
 #SBATCH --mem=$ram$
 #SBATCH --ntasks=2
 #SBATCH --cpus-per-task=2
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:4
 #SBATCH --time=14-00:00:00
 
 # Load modules
